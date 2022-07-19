@@ -1,5 +1,5 @@
 ---
-title: "First"
+title: "First Strike"
 date: 2022-07-19T00:37:00+02:00
 draft: false
 toc: false
@@ -10,6 +10,5 @@ tags:
   - welcome
   
 ---
-# First Strike
 This is the first post on this new generated website. I'll share my stuff on here in the future.
 Enjoy your stay on here!
