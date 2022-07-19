@@ -10,5 +10,6 @@ tags:
   - welcome
   
 ---
-# Welcome Traveler!
-Welcome to the space. Enjoy your stay!
+# First Strike
+This is the first post on this new generated website. I'll share my stuff on here in the future.
+Enjoy your stay on here!
