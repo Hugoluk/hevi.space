@@ -1,8 +1,11 @@
 ---
-title: "Second"
-layout: "baseof"
+title: "Mobile Security Assignment 2"
 url: /posts/"
-summary: second
+summary: Mobile Security Assignment 2"
+tags:
+    - Mobile Security
+    - Assignment 2
+    - Frontpage
 ---
 # Mobile Security Assignment 2
 
