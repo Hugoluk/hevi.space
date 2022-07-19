@@ -4,7 +4,7 @@ date: 2022-07-19T00:37:00+02:00
 draft: false
 toc: false
 cover:
-    image: "img/space.jpg"
+    image: "posts/img/space.jpg"
 tags:
   - first
   - welcome
