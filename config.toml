@@ -53,16 +53,21 @@ paginate     = 10
   [menu]
   [[menu.main]]
         identifier = "entries"
-        name       = "Go to Space"
+        name       = "Projects"
         url        = "/posts"
         weight = -110
   [[menu.main]]
         identifier = "tags"
         name       = "Tags"
         url        = "/tags"
-        weight = -100
+        weight = -20
   [[menu.main]]
-        identifier = "archives"
-        name       = "Archives"
-        url        = "/archives"
+        identifier = "hevi"
+        name       = "Hevi"
+        url        = "/myself"
         weight = -10
+  [[menu.main]]
+        identifier = "rl"
+        name       = "RL Stuff"
+        url        = "/rl"
+        weight = -100
