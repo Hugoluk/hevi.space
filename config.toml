@@ -1,4 +1,4 @@
-baseurl      = "localhost"
+baseurl      = "https://spectacular-moonbeam-a0f9cc.netlify.app/"
 title        = "Welcome to Hevi Space"
 languageCode = "en-us"
 theme = "hello_friend"
