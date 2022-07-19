@@ -11,15 +11,17 @@ tags:
 
 As mobile dating apps become increasingly popular, the threat of leaking very personal data with these apps is getting more and more serious as it affects more people. Therefore a student colleague and I  picked the topic “Analysis of Dating Apps” for the second assignment for the practical part of the lecture "Mobile Security". These reports contain are our results of our research, where we analyzed 8 of the most popular ones for leaks and exploits. 
 
+The reports of the apps are divided separately and linked.
+
 Apps we consider to analyze:
-1. Tinder
-2. Plenty Of Fish
-3. OkCupid
-4. Lovoo
-5. Her
-6. Badoo
-7. Bumble
-8. Happn
+1. [Tinder]({{< ref "/tinder/mobile_security_tinder.md" >}} "Tinder report")
+2. [Plenty of Fish]({{< ref "/pof/mobile_security_pof.md" >}} "Plenty Of Fish report")
+3. [OkCupid]({{< ref "/okcupid/mobile_security_okcupid.md" >}} "OkCupid report")
+4. [Lovoo]({{< ref "/lovoo/mobile_security_lovoo.md" >}} "Lovoo report")
+5. [Her]({{< ref "/her/mobile_security_her.md" >}} "Her report")
+6. [Badoo]({{< ref "/badoo_and_bumble/mobile_security_badoo_bumble.md" >}} "Badoo report")
+7. [Bumble]({{< ref "/badoo_and_bumble/mobile_security_badoo_bumble.md" >}} "Bumble report")
+8. [Happn]({{< ref "/happn/mobile_security_happn.md" >}} "Happn report")
 
 ## Checklist
 

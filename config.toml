@@ -15,7 +15,7 @@ paginate     = 10
   
   [params.homeInfoParams]
     Title = "Welcome Traveler!"
-    Content = "Welcome to the space. Enjoy your stay!
+    Content = "Welcome to the space. Enjoy your stay!"
     #Image = posts/img/space.jgp
 
   # Set disableReadOtherPosts to true in order to hide the links to other posts.
