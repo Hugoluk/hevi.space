@@ -117,30 +117,33 @@ HackMD link available: https://hackmd.io/JK7TNpr8QzSsZbRriLqVVA
 Her, formerly Dattch, is a geosocial networking app geared towards lesbian, queer, bisexual, and straight women and non-binary people.  Cisgender men are not allowed to create profiles on the platform. (Source: https://en.wikipedia.org/wiki/Her_(dating_app))
 
 Report is available at:
-https://hackmd.io/2EZaeTdRTsS6q4MYUPX3JA
+[Mobile Security: Her report]({{< ref "/her/mobile_security_her.md" >}} "Her report")
 
-### Bumble
+HackMD link available: https://hackmd.io/2EZaeTdRTsS6q4MYUPX3JA
 
-Bumble is an online dating application. Profiles of potential matches are displayed to users, who can "swipe left" to reject a candidate or "swipe right" to indicate interest. In heterosexual matches, only female users can make the first contact with matched male users, while in same-sex matches either person can send a message first.
-(Source: https://en.wikipedia.org/wiki/Bumble)
-
-Report for Bumble and Badoo is available at:
-https://hackmd.io/vzX2WogASCKK4urcQOyNMQ
-
-### Badoo
+### Badoo and Bumble
 
 Badoo is a dating-focused social network founded in 2006. It operates in 190 countries and is available in 47 different languages, making it the world's most widely used dating network.
 (Source: https://en.wikipedia.org/wiki/Badoo)
 
-Report for Bumble and Badoo is available at:
-https://hackmd.io/vzX2WogASCKK4urcQOyNMQ
+Bumble is an online dating application. Profiles of potential matches are displayed to users, who can "swipe left" to reject a candidate or "swipe right" to indicate interest. In heterosexual matches, only female users can make the first contact with matched male users, while in same-sex matches either person can send a message first.
+(Source: https://en.wikipedia.org/wiki/Bumble)
+
+Since they share the same back-end-structure, we only made one report for these two apps.
+
+Report is available at:
+[Mobile Security: Badoo and Bumble report]({{< ref "/badoo_and_bumble/mobile_security_badoo_bumble.md" >}} "Badoo and Bumble report")
+
+HackMD link available: https://hackmd.io/vzX2WogASCKK4urcQOyNMQ
 
 ### Happn
 Happn is a Paris-based dating app and has been around since 2014. Happn helps you connect with people you have crossed paths with in real life.
 (Source : https://www.eu-startups.com/2022/02/10-european-startups-helping-you-find-love/)
 
 Report is available at:
-https://hackmd.io/1T8lIeyGRhqV2RR4RX5L3g?both
+[Mobile Security: Happn report]({{< ref "/happn/mobile_security_happn.md" >}} "Happn report")
+
+HackMD link available: https://hackmd.io/1T8lIeyGRhqV2RR4RX5L3g?both
 
 
 ## Conclusion
