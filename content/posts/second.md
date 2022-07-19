@@ -9,9 +9,6 @@ tags:
 ---
 ## Intro
 
-Urban Suhadolnik 12127980
-Daniel Hevesy-Szettyan 11807776
-
 As mobile dating apps become increasingly popular, the threat of leaking very personal data with these apps is getting more and more serious as it affects more people. Therefore a student colleague and I  picked the topic “Analysis of Dating Apps” for the second assignment for the practical part of the lecture "Mobile Security". These reports contain are our results of our research, where we analyzed 8 of the most popular ones for leaks and exploits. 
 
 Apps we consider to analyze:
@@ -20,49 +17,65 @@ Apps we consider to analyze:
 3. OkCupid
 4. Lovoo
 5. Her
-6. Happn
-7. Badoo
-8. Bumble
+6. Badoo
+7. Bumble
+8. Happn
 
 ## Checklist
 
-1. Description
-2. Inspecting the registration process
-3. Inspect communication (MITM-Proxy, burp suite)
-4. Inspect liking (process)
-5. Are they staticly linking photos or other personal data (can we get more data about a specific user?) E.g. https://img.lovoo.com/users/pictures/62767fb02a175046ef7c7350/image.jpg where 6266cd58b5e1341bb476f697 is the ID of the user (my ID in this case)
-6. Decompile and reverse app code
-7. Inspect(debug) while the app is running (and what things are loaded in memory)
+1. Inspecting the registration process
+2. Inspecting the login process
+3. Inspecting the liking process
+4. Inspecting loading process of other users
+5. Inspecting the data sent by clicking on a user
+6. Inspecting public profile
+7. Inspecting tracking requests
+8. Intercepting requests to modify
+9. Modifying requests and injecting data
+10. Inspecting encrypted dat
 
-Advanced:
-6. Reverse and document API
+## Testing setup
 
+To research apps, we have set two testing setups apps that support x86 platform was tested in Android studio, virtual device manager. Some Bumble, Badoo and Her do not support x86 platforms so had to find an alternative. Performance of arm emulating in Android studio vritual device manager was too slow on our computers so we've resorted to using a real hardware. Urban had an old Huawei P9 lite which was not used anymore so we've installed apps there.
 
+Huawei P9 Lite can't be easily rooted which caused some problems. Mostly with ADB permissions. It was not possible to download split apps from the phone. We had to resort to alternative online apk providers such as apk pure and apk mirror to get application apks to patch. 
 
-## Testing set up
-
-To research apps we have set two testing seatups apps that support x86 platform were tested in Android studio vritual device manager. Some Bumble, Badoo and Her do not support x86 platform so had to find an alternative. Performance of arm emulating in Android studio vritual device manager was too slow on our computers so we've resorted to using a real hardware. Urban had an old Huawei P9 lite which was not used anymore so we've installed apps there.
-
-Huawei P9 Lite can't be easily rooted which coused some problems. Mostly with adb permissions. It was not possible to download split apks from the phone. We had to resort to alternative online apk prvider such as apk pure and apk mirror to get application apks to patch.
-
+Target app apks were patched using apk-mitm tool which automates the use of apktool and uber-APK signer. Traffic was intercepted either by MITM-proxy or with Burp Suite. Modifying requests and injecting data was done with Burp Suite.
 
 ## Tools
 
-### adb
+### Apktool
+
+A tool decoding decompiling and rebuilding Android apps. It can decode resources to nearly original form and rebuild them after making some modifications. We have used apktool to change app certificate policies and disable certificate pinning to enable us to read encrypted HTTPS communication.
+
+https://ibotpeaches.github.io/Apktool/
+
+### Uber Apk Signer
+
+Uber Apk Signer is a Android apk signer. Non-signed apks will not install Android. We have used it to sign out patched apk.
+
+https://github.com/patrickfav/uber-apk-signer
 
 ### apk-mitm
+
+Apk-mitm automates decompiling, patching, rebuilding, and signing of Android apks for HTTPS inspection. Apk-mitm automates the use of apktool, allowing user certificates, disabling certificate pinning, and uber-APK signer.
+
+We have used it to streamline our process of preparing apps for examination.
 
 https://github.com/shroudedcode/apk-mitm
 
 ### MITM proxy
 
+MITM proxy is an interactive TLS-capable intercepting HTTP proxy for Windows, Linux, and Mac. We have decided to use it because it provides an effective method of intercepting communication without modifying the device.
+
+https://mitmproxy.org/
 
 ### Burp suite
 Burpsuite is a web application testing tool, which allows us to do a MITM and collect traffic. It also allows us to intercept requests and modify them. We can use the repeater function to modify and repeat any request to the API. The decoder function allows us to decode strings in e.g. base64 on the fly.
 
+https://portswigger.net/burp
 
-
-# App research
+## App research
 
 ### Tinder
 Tinder is the most popular or better most common dating app nowadays. It advertises with the simple method of swiping left or right on a users profile if they like them or dislike them. If both users like each other a so called match is made and they can start a conversation.
@@ -71,7 +84,7 @@ Tinder is the most popular or better most common dating app nowadays. It adverti
 Report is available at:
 https://hackmd.io/OTQmFT4DQt-WuDyfkQy43g
 
-### Planty of fish
+### Plenty of fish
 Plenty of Fish is a canadian dating app with the typical like/dislike charts, but also has a area, where user can watch a live stream of other users.
 (Source: https://en.wikipedia.org/wiki/POF_(dating_website))
 
@@ -122,3 +135,14 @@ Report is available at:
 https://hackmd.io/1T8lIeyGRhqV2RR4RX5L3g?both
 
 
+## Conclusion
+
+Comparing it to the linked survey a few years ago, we found out that for most apps we tested, there is still a lot of data leaked. We discovered that one point in the survey got better at this point in time. On every app we tested we looked for the Facebook (or Instagram) id. Some used the Facebook login or used a tag if the user has Instagram. But no personal connection to that (except the user linked it themself) was found.
+
+Besides that we found that a few app still leak a lot of personal data and exact locations to other users. One good example is Lovoo. We found a tool written by a user a long time ago, which allows us to track people with requests to the API. This would still function today because the data we get today still fits for this tool.
+But one positive example is Tinder. It really got better over time (in comparison to the state of the app in the survey) and nowadays leaks not that much data of other users. It still reveals the distance of a user, but not much in detail to use it for malicious purposes. A little example would be the leak of the picture uploaded in open networks. The app nowadays encrypts in and sends it securely over the network.
+
+On Her and OKCupid we also found a lot of data leaked which isn't even visible and useful for the end user. On OKCupid it's also possible to skip the whole phone number verification, which could lead to automatization and spam accounts.
+Bumble and Badoo proved to be the most diligent in protecting user data. Other than signs of commercial tracking we were not able to find anything of significance.
+
+In conclusion, it can be said that a lot of apps are still leaking data and therefore state of dating apps didn't get much better. Some apps (the most popular ones) improved, but stalking could be still an issue nowadays. The end users should be aware of this when using such apps. And should consider which they use and if they should use such apps in the first place.
