@@ -1,18 +1,18 @@
 ---
 title: "Mobile Security Assignment 2"
 url: /posts/"
-summary: Analyzing dating apps
+summary: Analysis of Dating Apps
 tags:
     - Mobile Security
     - Assignment 2
     - Frontpage
 ---
-# Mobile Security Assignment 2
+## Intro
 
 Urban Suhadolnik 12127980
 Daniel Hevesy-Szettyan 11807776
 
-As mobile dating apps become increasingly popular, the threat of leaking very personal data with these apps is getting more and more serious as it affects more people. Therefore we picked the topic “Analysis of Dating Apps”, where we research previous leaks of dating apps and analyze 8 of them. 
+As mobile dating apps become increasingly popular, the threat of leaking very personal data with these apps is getting more and more serious as it affects more people. Therefore a student colleague and I  picked the topic “Analysis of Dating Apps” for the second assignment for the practical part of the lecture "Mobile Security". These reports contain are our results of our research, where we analyzed 8 of the most popular ones for leaks and exploits. 
 
 Apps we consider to analyze:
 1. Tinder
