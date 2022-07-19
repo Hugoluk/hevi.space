@@ -1,6 +1,6 @@
 ---
-title: "Mobile Security Tinder Report"
-url: /posts/"
+title: "Mobile Security: Tinder report"
+url: /ass2/tinder/"
 summary: Analysis of Tinder
 tags:
     - Mobile Security

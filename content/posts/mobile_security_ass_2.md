@@ -82,27 +82,35 @@ Tinder is the most popular or better most common dating app nowadays. It adverti
 (Source: https://tinder.com/about-tinder)
 
 Report is available at:
-https://hackmd.io/OTQmFT4DQt-WuDyfkQy43g
+[Mobile Security: Tinder report]({{< ref "/tinder/mobile_security_tinder.md" >}} "Tinder report")
 
-### Plenty of fish
+HackMD link available: https://hackmd.io/OTQmFT4DQt-WuDyfkQy43g
+
+### Plenty of Fish
 Plenty of Fish is a canadian dating app with the typical like/dislike charts, but also has a area, where user can watch a live stream of other users.
 (Source: https://en.wikipedia.org/wiki/POF_(dating_website))
 
 Report is available at:
-https://hackmd.io/cWuYII2pTOCso2cZF7-1yA
+[Mobile Security: Plenty of Fish report]({{< ref "/pof/mobile_security_pof.md" >}} "Plenty of Fish report")
+
+HackMD link available: https://hackmd.io/cWuYII2pTOCso2cZF7-1yA
 
 ### OkCupid
 OK Cupid is also a very popular dating app. It has the typical matches, where you can like or dislike suggested users. But also tabs where the app suggests you users with the most "match percentages", recommendations, users who like you and "Cupid's picks".
 
 Report is available at:
-https://hackmd.io/OlAWl8-BS9y0Q9x5bR5J7g
+[Mobile Security: OKCupid report]({{< ref "/okcupid/mobile_security_okcupid.md" >}} "OKCupid report")
+
+HackMD link available: https://hackmd.io/OlAWl8-BS9y0Q9x5bR5J7g
 
 ### Lovoo
 Lovoo is a popular dating app especially in Austria and Germany. It is geo location based and has the typical matching functions, people near you and a streaming function. 
 (Source: https://about.lovoo.com/)
 
 Report is available at:
-https://hackmd.io/JK7TNpr8QzSsZbRriLqVVA
+[Mobile Security: Lovoo report]({{< ref "/lovoo/mobile_security_lovoo.md" >}} "Lovoo report")
+
+HackMD link available: https://hackmd.io/JK7TNpr8QzSsZbRriLqVVA
 
 ### Her
 
