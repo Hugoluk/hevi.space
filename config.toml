@@ -1,8 +1,12 @@
 baseurl      = "https://spectacular-moonbeam-a0f9cc.netlify.app/"
 title        = "Welcome to Hevi Space"
 languageCode = "en-us"
-theme = "hello_friend"
+theme = "hugo-PaperMod"
 paginate     = 10
+
+[homeInfoParams]
+  Title = "Welcome to my Space"
+  Content = "Welcome fellow student"
 
 [params]
   dateform        = "Jan 2, 2006"
@@ -10,14 +14,13 @@ paginate     = 10
   dateformNum     = "2006-01-02"
   dateformNumTime = "2006-01-02 15:04"
 
-  # Subtitle for home
-  homeSubtitle = "Welcome to my Space"
+  ShowBreadCrumbs = true
 
   # Set disableReadOtherPosts to true in order to hide the links to other posts.
   disableReadOtherPosts = false
 
   # Enable sharing buttons, if you like
-  enableSharingButtons = true
+  enableSharingButtons = false
 
   # Metadata mostly used in document's head
   description = "Homespace of Hevi"
@@ -46,7 +49,19 @@ paginate     = 10
     # alt = "Your example logo alt text"
 
   # And you can even create generic menu
+  [menu]
   [[menu.main]]
         identifier = "entries"
         name       = "Go to Space"
         url        = "/posts"
+        weight = -110
+  [[menu.main]]
+        identifier = "tags"
+        name       = "Tags"
+        url        = "/tags"
+        weight = -100
+  [[menu.main]]
+        identifier = "archives"
+        name       = "Archives"
+        url        = "/archives"
+        weight = -10
