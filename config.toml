@@ -16,6 +16,7 @@ paginate     = 10
   [params.homeInfoParams]
     Title = "Welcome to my Space"
     Content = "Welcome fellow student"
+    Image = posts/img/space.jgp
 
   # Set disableReadOtherPosts to true in order to hide the links to other posts.
   disableReadOtherPosts = false
