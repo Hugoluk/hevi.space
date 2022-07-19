@@ -1,148 +1,363 @@
 ---
-title: "Mobile Security Assignment 2"
+title: "Mobile Security Tinder Report"
 url: /posts/"
-summary: Analysis of Dating Apps
+summary: Analysis of Tinder
 tags:
     - Mobile Security
     - Assignment 2
     - Tinder
 ---
-## Intro
 
-As mobile dating apps become increasingly popular, the threat of leaking very personal data with these apps is getting more and more serious as it affects more people. Therefore a student colleague and I  picked the topic “Analysis of Dating Apps” for the second assignment for the practical part of the lecture "Mobile Security". These reports contain are our results of our research, where we analyzed 8 of the most popular ones for leaks and exploits. 
+## Description
+Tinder is the most popular or better most common dating app nowadays. The name Tinder comes from an easily combustible material used to start a fire. It advertises with the simple method of swiping left or right on a users profile if they like them or dislike them. If both users like each other a so called match is made and they can start a conversation.
+It's very well made and also very simple in use. Because it has grown so big we didn't expect to find much on this app. But for completeness we have investigated this app as well.
 
-Apps we consider to analyze:
-1. Tinder
-2. Plenty Of Fish
-3. OkCupid
-4. Lovoo
-5. Her
-6. Badoo
-7. Bumble
-8. Happn
+Source: https://tinder.com/about-tinder
 
-## Checklist
+**Device used:** Android emulator Pixel 4 Android 10 API level 29, x86
 
-1. Inspecting the registration process
-2. Inspecting the login process
-3. Inspecting the liking process
-4. Inspecting loading process of other users
-5. Inspecting the data sent by clicking on a user
-6. Inspecting public profile
-7. Inspecting tracking requests
-8. Intercepting requests to modify
-9. Modifying requests and injecting data
-10. Inspecting encrypted dat
+## Structure of report
+1. Description
+2. Registration process
+3. Login process
+6. Obtaining other users data
+7. Direct profile access
+8. Investigating premium functions
+9. Liking Process
+10. Tracking
+11. Conclusion
+12. Future work
 
-## Testing setup
+## Registration process
+In the registration process was nothing noticeable to be found besides that the Russian phone number doesn't work anymore.
 
-To research apps, we have set two testing setups apps that support x86 platform was tested in Android studio, virtual device manager. Some Bumble, Badoo and Her do not support x86 platforms so had to find an alternative. Performance of arm emulating in Android studio vritual device manager was too slow on our computers so we've resorted to using a real hardware. Urban had an old Huawei P9 lite which was not used anymore so we've installed apps there.
+## Login process
+Starting up the app makes some init requests with collecting some data about the device. One of them has a lot of interesting tags in it:
+```=json
+POST /v1/open HTTP/2
+Host: api2.branch.io
+...
+{
+    "device_fingerprint_id":"1062755633515839194",
+    "identity_id":"1062755634115628367",
+    "hardware_id":"bca0d57693dc1b8b",
+    "is_hardware_id_real":true,
+    "brand":"Google",
+    "model":"Android SDK built for x86",
+    "screen_dpi":440,
+    "screen_height":1977,
+    "screen_width":1080,
+    "wifi":true,
+    "ui_mode":"UI_MODE_TYPE_NORMAL",
+    "os":"Android",
+    "os_version":29,
+    "country":"US",
+    "language":"en",
+    "local_ip":"10.0.2.15",
+    "app_version":"13.6.1",
+    "facebook_app_link_checked":false,
+    "is_referrable":1,
+    "debug":false,
+    "update":1,
+    "latest_install_time":1654617540261,
+    "latest_update_time":1654617540261,
+    "first_install_time":1654617540261,
+    "previous_update_time":1654617540261,
+    "environment":"FULL_APP",
+    "cd":{
+        "mv":"-1",
+        "pn":"com.tinder"
+    },
+    "metadata":{
+    },
+    "google_advertising_id":"d104807b-7db9-4aa8-b9af-47d3efcde938",
+    "lat_val":0,
+    "instrumentation":{
+        "v1\/open-qwt":"0"
+    },
+    "sdk":"android4.0.0",
+    "branch_key":"key_live_mhkKfK7Br0UHcrNnmV6CVhbosDoGS8JH",
+    "retryNumber":0
+}
+```
+Besides the fingerprints of the device it tracks "is_hardware_id_real", if it's connected to the wifi, "local_ip", "latest_install_time", "first_install_time", "latest_update_time" and "previous_update_time".
 
-Huawei P9 Lite can't be easily rooted which caused some problems. Mostly with ADB permissions. It was not possible to download split apps from the phone. We had to resort to alternative online apk providers such as apk pure and apk mirror to get application apks to patch. 
+After that the app sends the current location to the API.
+```
+POST /v2/meta HTTP/2
+Host: api.gotinder.com
+...
+{"lat":47.0707133,"lon":15.4395033,"force_fetch_resources":true}
+```
+## Obtaining other users data
+Clicking on the "main" tab, where the user can vote sends following request to load the user cards in.
+```
+GET /v2/recs/core?locale=en HTTP/2
+Host: api.gotinder.com
+```
+The response to this gives us some data about the user:
+```=json
+{
+    "type":"user",
+    "user":{
+        "_id":"62923183cc00110100309cee",
+        "badges":[
+        ],
+        "bio":"running & \uD83C\uDF55",
+        "birth_date":"1994-06-10T16:21:50.584Z",
+        "name":"Anita",
+        "photos":[
+        ],
+        "gender":1,
+        "jobs":[
+        ],
+        "schools":[
+            {
+                "name":"Karl-Franzens-Universität Graz"
+            }
+        ],
+        "city":{
+            "name":"Graz"
+        },
+        "is_traveling":false,
+        "show_gender_on_profile":true,
+        "recently_active":true,
+        "online_now":false,
+        "selected_descriptors":[
+        ]
+    },
+    "facebook":{
+        "common_connections":[
+        ],
+        "connection_count":0,
+        "common_interests":[
+        ]
+    },
+    "spotify":{
+    },
+    "distance_mi":1,
+    "content_hash":"6P8UoMck7HLF0pIa5f3LHbJI7bcl2CLMTaIPzcLhm9hp1",
+    "s_number":1883739694839039,
+    "teaser":{
+        "type":"school",
+        "string":"Karl-Franzens-Universität Graz"
+    },
+    "teasers":[
+        {
+            "type":"school",
+            "string":"Karl-Franzens-Universität Graz"
+        }
+    ],
+    "experiment_info":{
+    },
+    "is_superlike_upsell":true,
+    "tappy_content":[
+    ]
+}
+```
+In this data is the name, birthdate, school but also the distance in miles. More intersting are the tags "is_traveling", "recently_active" and "online_now". But besides that, it doesn't show much. 
 
-Target app apks were patched using apk-mitm tool which automates the use of apktool and uber-APK signer. Traffic was intercepted either by MITM-proxy or with Burp Suite. Modifying requests and injecting data was done with Burp Suite.
+## Direct profile access
 
-## Tools
+Looking at the communication when clicking on a user shows a response with almost equal data, with not much revealing data of the user.
+```=json
+"status":200,
+"results":{
+    "common_friends":[
+    ],
+    "common_friend_count":0,
+    "spotify_top_artists":[
+    ],
+    "distance_mi":1,
+    "connection_count":0,
+    "common_connections":[
+    ],
+    "bio":"\uD83D\uDC83\uD83C\uDFFC\uD83C\uDFC3\uD83C\uDFFC‍",
+    "birth_date":"1994-06-10T16:53:44.966Z",
+    "name":"Melanie",
+    "jobs":[
+    ],
+    "schools":[
+        {
+            "name":"University of Graz",
+            "displayed":false
+        }
+    ],
+    "teasers":[
+        {
+            "type":"sameSchool",
+            "string":"University of Graz"
+        }
+    ],
+    "gender":-1,
+    "show_gender_on_profile":false,
+    "birth_date_info":"fuzzy birth date active, not displaying real birth_date",
+    "ping_time":"2014-12-09T00:00:00.000Z",
+    "badges":[
+    ],
+    "photos":[],
+    "user_interests":{
+        "selected_interests":[
+            {
+                "id":"it_4",
+                "name":"Running"
+            },
+            {
+                "id":"it_28",
+                "name":"Reading"
+            },
+            {
+                "id":"it_2016",
+                "name":"Dancing"
+            },
+            {
+                "id":"it_10",
+                "name":"Brunch"
+            },
+            {
+                "id":"it_7",
+                "name":"Travel"
+            }
+        ]
+    },
+    "common_likes":[
+    ],
+    "common_like_count":0,
+    "common_interests":[
+    ],
+    "s_number":3805960890940599,
+    "_id":"62817714cfd03201005c2335",
+    "is_tinder_u":false
+}
+```
 
-### Apktool
+## Investigating premium functions
 
-A tool decoding decompiling and rebuilding Android apps. It can decode resources to nearly original form and rebuild them after making some modifications. We have used apktool to change app certificate policies and disable certificate pinning to enable us to read encrypted HTTPS communication.
+The app regularly makes following request where it checks if the user is "boosting" (becomes more suggested to other users).
+```
+POST /updates?is_boosting=false&boost_cursor=0 HTTP/2
+Host: api.gotinder.com
+...
+{"last_activity_date":"2022-06-07T16:20:00.046Z"}
+```
+The response has some interesting fields in it with matches, harassing_messages, blocks, etc. ...
+```=json
+{
+    "matches":[
+    ],
+    "blocks":[
+    ],
+    "inbox":[
+    ],
+    "liked_messages":[
+    ],
+    "harassing_messages":[
+    ],
+    "lists":[
+    ],
+    "goingout":[
+    ],
+    "deleted_lists":[
+    ],
+    "matchmaker":[
+    ],
+    "squads":[
+    ],
+    "last_activity_date":"2022-06-07T16:20:00.046Z",
+    "poll_interval":{
+        "standard":2000,
+        "persistent":120000
+    }
+}
+```
+In combination with the request when clicking on the boost icon:
+```
+POST /boost HTTP/2
+Host: api.gotinder.com
+```
+I thought that could be manipulated to get an effect.
+So I tried to change the request before to
+```
+POST /updates?is_boosting=true&boost_cursor=1 HTTP/2
+```
+everytime the app would send it and intercepting and changing the response from the boost icon like this.
+```=json
+{
+    "duration":1800000,
+    "allotment":1,
+    "allotment_used":0,
+    "allotment_remaining":1,
+    "internal_remaining":1,
+    "purchased_remaining":1,
+    "remaining":1,
+    "boost_refresh_amount":1,
+    "boost_refresh_interval":1,
+    "boost_refresh_interval_unit":"m",
+    "out_of_boost":false
+}
+```
+Repeating this some time trying to trick the app into thinking we have purchased a boost, gave on time a successful popup!
+![](https://i.imgur.com/6a4MplE.png)
 
-https://ibotpeaches.github.io/Apktool/
+After that the app made some of these requests over some time:
+```
+GET /v2/profile?include=boost HTTP/2
+Host: api.gotinder.com
+```
+But besides that we didn't have an indicator to see if it really worked.
+Some time later Tinder locked the account because of supicious activity until we verify our profile.
 
-### Uber Apk Signer
+## Liking process
+The liking process on this app is really straight forward. With a request to this endpoint, the app sends how the user liked the other user.
+```=json
+POST /like/6289d98ccfd03201005ee2e4 HTTP/2
+Host: api.gotinder.com
+...
+{
+    "photoId":"30e94e1c-463d-4c80-90b9-389574ecf2a7",
+    "content_hash":"RX8iwbIl2HZhMbhx2SZ5i5qHE3c93cDbheMUZQhXzi5rtmN",
+    "super":0,
+    "fast_match":0,
+    "top_picks":0,
+    "undo":0,
+    "s_number":7248806679023904
+}
+```
+The app gets a response with a status, a tag if a match happend and the remaining likes.
+```
+"status":200,"match":false,"likes_remaining":100,"X-Padding":...
+```
+The response on the other hand is to a other endpoint but with the info in the parameters. 
+```
+GET /pass/5e2c8af6f057db0100f5f9b9?photoId=4a09f78d-6b36-4e1f-9621-8b0ef2890cb4&content_hash=RX3CGUrjIaEt2pcxOfZlHVFEwFGS8VTghdeCrXuRf55&s_number=5848852989094555 HTTP/2
+Host: api.gotinder.com
+```
+Other then that here isn't really anything interesting to be found within the liking process.
 
-Uber Apk Signer is a Android apk signer. Non-signed apks will not install Android. We have used it to sign out patched apk.
-
-https://github.com/patrickfav/uber-apk-signer
-
-### apk-mitm
-
-Apk-mitm automates decompiling, patching, rebuilding, and signing of Android apks for HTTPS inspection. Apk-mitm automates the use of apktool, allowing user certificates, disabling certificate pinning, and uber-APK signer.
-
-We have used it to streamline our process of preparing apps for examination.
-
-https://github.com/shroudedcode/apk-mitm
-
-### MITM proxy
-
-MITM proxy is an interactive TLS-capable intercepting HTTP proxy for Windows, Linux, and Mac. We have decided to use it because it provides an effective method of intercepting communication without modifying the device.
-
-https://mitmproxy.org/
-
-### Burp suite
-Burpsuite is a web application testing tool, which allows us to do a MITM and collect traffic. It also allows us to intercept requests and modify them. We can use the repeater function to modify and repeat any request to the API. The decoder function allows us to decode strings in e.g. base64 on the fly.
-
-https://portswigger.net/burp
-
-## App research
-
-### Tinder
-Tinder is the most popular or better most common dating app nowadays. It advertises with the simple method of swiping left or right on a users profile if they like them or dislike them. If both users like each other a so called match is made and they can start a conversation.
-(Source: https://tinder.com/about-tinder)
-
-Report is available at:
-https://hackmd.io/OTQmFT4DQt-WuDyfkQy43g
-
-### Plenty of fish
-Plenty of Fish is a canadian dating app with the typical like/dislike charts, but also has a area, where user can watch a live stream of other users.
-(Source: https://en.wikipedia.org/wiki/POF_(dating_website))
-
-Report is available at:
-https://hackmd.io/cWuYII2pTOCso2cZF7-1yA
-
-### OkCupid
-OK Cupid is also a very popular dating app. It has the typical matches, where you can like or dislike suggested users. But also tabs where the app suggests you users with the most "match percentages", recommendations, users who like you and "Cupid's picks".
-
-Report is available at:
-https://hackmd.io/OlAWl8-BS9y0Q9x5bR5J7g
-
-### Lovoo
-Lovoo is a popular dating app especially in Austria and Germany. It is geo location based and has the typical matching functions, people near you and a streaming function. 
-(Source: https://about.lovoo.com/)
-
-Report is available at:
-https://hackmd.io/JK7TNpr8QzSsZbRriLqVVA
-
-### Her
-
-Her, formerly Dattch, is a geosocial networking app geared towards lesbian, queer, bisexual, and straight women and non-binary people.  Cisgender men are not allowed to create profiles on the platform. (Source: https://en.wikipedia.org/wiki/Her_(dating_app))
-
-Report is available at:
-https://hackmd.io/2EZaeTdRTsS6q4MYUPX3JA
-
-### Bumble
-
-Bumble is an online dating application. Profiles of potential matches are displayed to users, who can "swipe left" to reject a candidate or "swipe right" to indicate interest. In heterosexual matches, only female users can make the first contact with matched male users, while in same-sex matches either person can send a message first.
-(Source: https://en.wikipedia.org/wiki/Bumble)
-
-Report for Bumble and Badoo is available at:
-https://hackmd.io/vzX2WogASCKK4urcQOyNMQ
-
-### Badoo
-
-Badoo is a dating-focused social network founded in 2006. It operates in 190 countries and is available in 47 different languages, making it the world's most widely used dating network.
-(Source: https://en.wikipedia.org/wiki/Badoo)
-
-Report for Bumble and Badoo is available at:
-https://hackmd.io/vzX2WogASCKK4urcQOyNMQ
-
-### Happn
-Happn is a Paris-based dating app and has been around since 2014. Happn helps you connect with people you have crossed paths with in real life.
-(Source : https://www.eu-startups.com/2022/02/10-european-startups-helping-you-find-love/)
-
-Report is available at:
-https://hackmd.io/1T8lIeyGRhqV2RR4RX5L3g?both
-
-
+## Tracking
+The app regularly checks if it's in background.
+```
+GET /v2/device-check/android?background=0 HTTP/2
+Host: api.gotinder.com
+```
+It also makes POST requests with users coordinates to update them.
+```
+POST /v2/meta HTTP/2
+Host: api.gotinder.com
+...
+{"lat":47.0707133,"lon":15.4395033,"force_fetch_resources":true}
+```
+This request, described above, is really regularly made. Maybe related to the boosting function, which is time based (half an hour once activated).
+```
+POST /updates?is_boosting=false&boost_cursor=0 HTTP/2
+```
+This request is made to a marketing service. I think for tracking purposes.
+```
+POST /api/v6.3/androidevent?app_id=com.tinder&buildnumber=6.3.1 HTTP/2
+Host: inapps.appsflyer.com
+```
 ## Conclusion
+The app is really well made and we didn't find that much on this app. Not much of user data is leaked to other users especially in comparison to other dating apps. There is still some strange tracking with coordinates, "is_traveling" tag and the data pulled out of the device after login.
 
-Comparing it to the linked survey a few years ago, we found out that for most apps we tested, there is still a lot of data leaked. We discovered that one point in the survey got better at this point in time. On every app we tested we looked for the Facebook (or Instagram) id. Some used the Facebook login or used a tag if the user has Instagram. But no personal connection to that (except the user linked it themself) was found.
-
-Besides that we found that a few app still leak a lot of personal data and exact locations to other users. One good example is Lovoo. We found a tool written by a user a long time ago, which allows us to track people with requests to the API. This would still function today because the data we get today still fits for this tool.
-But one positive example is Tinder. It really got better over time (in comparison to the state of the app in the survey) and nowadays leaks not that much data of other users. It still reveals the distance of a user, but not much in detail to use it for malicious purposes. A little example would be the leak of the picture uploaded in open networks. The app nowadays encrypts in and sends it securely over the network.
-
-On Her and OKCupid we also found a lot of data leaked which isn't even visible and useful for the end user. On OKCupid it's also possible to skip the whole phone number verification, which could lead to automatization and spam accounts.
-Bumble and Badoo proved to be the most diligent in protecting user data. Other than signs of commercial tracking we were not able to find anything of significance.
-
-In conclusion, it can be said that a lot of apps are still leaking data and therefore state of dating apps didn't get much better. Some apps (the most popular ones) improved, but stalking could be still an issue nowadays. The end users should be aware of this when using such apps. And should consider which they use and if they should use such apps in the first place.
+## Future work
+A deeper investigation of the boost activation with request could be interesting. A comparison how the app acts, when a boost is purchased, and how its visible for other user is necessary.
