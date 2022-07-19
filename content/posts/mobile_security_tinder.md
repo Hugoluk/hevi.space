@@ -5,7 +5,7 @@ summary: Analysis of Dating Apps
 tags:
     - Mobile Security
     - Assignment 2
-    - Frontpage
+    - Tinder
 ---
 ## Intro
 
