@@ -5,29 +5,39 @@ theme = "hugo-PaperMod"
 paginate     = 10
 
 [params]
-  dateform        = "Jan 2, 2006"
-  dateformShort   = "Jan 2"
-  dateformNum     = "2006-01-02"
-  dateformNumTime = "2006-01-02 15:04"
 
   ShowBreadCrumbs = true
   ShowReadingTime = true
-  
-  [params.homeInfoParams]
-    Title = "Welcome Traveler!"
-    Content = "Welcome to the space. Enjoy your stay!"
-    #Image = posts/img/space.jgp
+  defaultTheme = "auto"
 
-  # Set disableReadOtherPosts to true in order to hide the links to other posts.
-  disableReadOtherPosts = false
+  [params.header]
+    desktopMode = "auto"
+    mobileMode = "auto"
 
-  # Enable sharing buttons, if you like
-  enableSharingButtons = false
+  [params.profileMode]
+    enabled = true
+    title = "Welcome Traveler \U0001F44B"
+    subtitle = "Enjoy your stay!"
+    imageUrl = "https://img.favpng.com/20/17/0/logo-graphic-design-png-favpng-rySDqpQs31nbJjyxWPidPvhxQ.jpg"
+    #imageTitle = "<title of image as alt>"
+    imageWidth = 120
+    imageHeight = 120
 
-  # Metadata mostly used in document's head
-  description = "Homespace of Hevi"
-  keywords = "homepage, blog"
-  images = [""]
+  [[params.profileMode.buttons]]
+    name = "Projects"
+    url = "/posts"
+
+  [[params.profileMode.buttons]]
+    name = "Github"
+    url = "https://github.com/"
+
+  [[params.socialIcons]]
+    name = "Instagram"
+    url = "https://www.instagram.com/daniheevi"
+
+  [[params.socialIcons]]
+    name = "Tiktok"
+    url = "https://gehscheissn.at"
 
 [taxonomies]
     category = "blog"
