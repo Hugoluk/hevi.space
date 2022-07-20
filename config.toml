@@ -62,8 +62,8 @@ paginate     = 10
         url        = "/tags"
         weight = -20
   [[menu.main]]
-        identifier = "hevi"
-        name       = "Hevi"
+        identifier = "aboutme"
+        name       = "About me"
         url        = "/myself"
         weight = -10
   [[menu.main]]

@@ -1,7 +1,7 @@
 ---
-title: "Mobile Security Assignment 2"
+title: "Analysis of Dating Apps"
 url: /posts/"
-summary: Analysis of Dating Apps
+summary: Mobile Security Assignment 2
 tags:
     - Mobile Security
     - Assignment 2
